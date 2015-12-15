@@ -1,13 +1,14 @@
 function TestExtrapPhase()
-NUM_EXTRAP = 20;
+NUM_EXTRAP = 26;
 FS = 44100;
-BLOCK_SIZE = 2048;
+BLOCK_SIZE = 1024;
 HOP_SIZE = BLOCK_SIZE / 4;
 window = hann(BLOCK_SIZE);
 
-freq = 8.8 * FS / BLOCK_SIZE
+freq = 2 * FS / 2048;
 t = 0:1 / FS:1 - (1 / FS);
 x = sin(t * 2 * pi * freq).';
+x = x(5:end);
 
 x_blocked = BlockSignal(x, BLOCK_SIZE, HOP_SIZE).';
 num_blocks = size(x_blocked, 2);
@@ -21,28 +22,28 @@ extrap_x_freqs = ExtrapolatePhase(x_freqs(:, 1:2), HOP_SIZE, NUM_EXTRAP, FS);
 extrap_x_times = ifftshift(real(ifft(extrap_x_freqs)), 1);
 extrap_x_times = extrap_x_times .* window_blocked;
 
-figure()
-subplot(7,1,1);
-plot(extrap_x_times(:, 8));
-title('8');
-subplot(7,1,2);
-plot(extrap_x_times(:, 9));
-title('9');
-subplot(7,1,3);
-plot(extrap_x_times(:, 10));
-title('10');
-subplot(7,1,4);
-plot(extrap_x_times(:, 11));
-title('11');
-subplot(7,1,5);
-plot(extrap_x_times(:, 12));
-title('12');
-subplot(7,1,6);
-plot(extrap_x_times(:, 13));
-title('13');
-subplot(7,1,7);
-plot(extrap_x_times(:, 14));
-title('14');
+% figure()
+% subplot(7,1,1);
+% plot(extrap_x_times(:, 8));
+% title('8');
+% subplot(7,1,2);
+% plot(extrap_x_times(:, 9));
+% title('9');
+% subplot(7,1,3);
+% plot(extrap_x_times(:, 10));
+% title('10');
+% subplot(7,1,4);
+% plot(extrap_x_times(:, 11));
+% title('11');
+% subplot(7,1,5);
+% plot(extrap_x_times(:, 12));
+% title('12');
+% subplot(7,1,6);
+% plot(extrap_x_times(:, 13));
+% title('13');
+% subplot(7,1,7);
+% plot(extrap_x_times(:, 14));
+% title('14');
 
 
 y = ReconstructSignal(extrap_x_times.', BLOCK_SIZE, HOP_SIZE);

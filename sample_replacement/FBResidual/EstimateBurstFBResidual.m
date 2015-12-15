@@ -1,6 +1,6 @@
 function x_hat = EstimateBurstFBResidual(left_samples, right_samples, burst_length, truth)
-  MAX_SAMPLES_TO_USE = 150;
-  ORDER = 60;
+  MAX_SAMPLES_TO_USE = 30;
+  ORDER = 5;
   
   num_left_samples = length(left_samples);
   if(num_left_samples > MAX_SAMPLES_TO_USE)

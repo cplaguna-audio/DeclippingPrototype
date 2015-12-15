@@ -1,6 +1,6 @@
 function x_hat = EstimateBurstFBWindowed(left_samples, right_samples, burst_length, truth)
-  MAX_SAMPLES_TO_USE = 60;
-  ORDER = 45;
+  MAX_SAMPLES_TO_USE = 16;
+  ORDER = 13;
   
   num_left_samples = length(left_samples);
   if(num_left_samples > MAX_SAMPLES_TO_USE)
